@@ -14,7 +14,8 @@ pipeline {
                     cd ${WORKSPACE}/Terraform/Eks
                         terraform init
                         terraform plan
-                        terraform apply -auto-approve
+                        
+                        terraform ${Terraform_condition} -auto-approve
                         """
                        }
                     }
