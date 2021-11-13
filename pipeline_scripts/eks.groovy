@@ -25,6 +25,11 @@ pipeline {
                     }
             }
         stage('Setting up the Cluster Access'){
+             when {
+                expression {
+                 params.terraform_option == 'apply';
+                    }
+                }
             steps {
                 script {
                     sh """
