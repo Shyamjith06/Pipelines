@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh """
                 echo "hello-world"
-                echo '${Environment}'
+                echo ${Environment}
                 """
               }
         }
