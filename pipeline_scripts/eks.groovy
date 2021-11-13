@@ -24,5 +24,16 @@ pipeline {
                        }
                     }
             }
+        stage('Setting up the Cluster Access'){
+            steps {
+                script {
+                    sh """
+                    cd ${WORKSPACE}/terraform/config/eks_setup/
+                        aws eks --region eu-west-1 update-kubeconfig --name ${params.env}
+                        kubectl apply -f aws-auth-conf.yaml
+                        """
+                }
+            }
+        }
         }
 }
