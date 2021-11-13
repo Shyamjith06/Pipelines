@@ -14,8 +14,8 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/eks_setup/
-                        terraform workspace select ${params.env}
                         terraform init
+                        terraform workspace select ${params.env}
                         terraform plan
                         
                         terraform apply -auto-approve
