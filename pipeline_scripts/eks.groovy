@@ -18,7 +18,7 @@ pipeline {
                         terraform workspace select ${params.env}
                         terraform plan
                         
-                        terraform apply -auto-approve
+                        terraform ${params.terraform_option} -auto-approve
                         """
                        }
                     }
