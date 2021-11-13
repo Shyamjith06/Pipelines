@@ -14,6 +14,7 @@ pipeline {
                 sh """
                 echo "hello-world"
                 echo '${Environment}'
+                """
               }
         stage('Execute Terraform to Provison EKS'){
             steps {
