@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    cd ${WORKSPACE}/factory/terraform/config/eks_setup/
+                    cd ${WORKSPACE}/eks_setup/terraform/config/eks_setup/
                         terraform init
                         terraform plan
                         
