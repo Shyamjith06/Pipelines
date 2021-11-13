@@ -9,20 +9,12 @@ pipeline {
                     url: 'https://github.com/Shyamjith06/factory.git'
             }
               }
-        stage('parameter check') {
-            steps {
-                sh """
-                echo "hello-world"
-                echo ${Environment}
-                """
-              }
-        }
         stage('Execute Terraform to Provison EKS'){
             steps {
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/eks_setup/
-                        terraform workspace select factory
+                        terraform workspace select ${params.env}
                         terraform init
                         terraform plan
                         
