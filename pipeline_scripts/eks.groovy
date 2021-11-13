@@ -19,6 +19,7 @@ pipeline {
                         terraform plan
                         
                         terraform ${params.terraform_option} -auto-approve
+                        terraform output >> aws-auth-conf.yaml
                         """
                        }
                     }
