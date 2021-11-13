@@ -9,6 +9,12 @@ pipeline {
                     url: 'https://github.com/Shyamjith06/factory.git'
             }
               }
+        stage('parameter check') {
+            steps {
+                sh """
+                echo "hello-world"
+                echo '${Environment}'
+              }
         stage('Execute Terraform to Provison EKS'){
             steps {
                 script {
