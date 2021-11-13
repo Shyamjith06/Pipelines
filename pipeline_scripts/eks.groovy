@@ -14,6 +14,7 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/eks_setup/
+                        terraform workspace select ${Environment}
                         terraform init
                         terraform plan
                         
