@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Cloning factory Repo') {
             steps {
-                git 'https://github.com/Shyamjith06/factory.git'
+                git branch: 'main',
+                    credentialsId: 'Git',
+                    url: 'https://github.com/Shyamjith06/factory.git'
             }
               }
         stage('Execute Terraform to Provison EKS'){
