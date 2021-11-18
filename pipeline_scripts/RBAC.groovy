@@ -9,7 +9,7 @@ pipeline {
                     url: 'https://github.com/Shyamjith06/factory.git'
             }
         }
-        stage('Deploy nginx') {
+        stage('Deploy RBAC') {
             steps {
                script {
                     sh """
