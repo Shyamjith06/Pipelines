@@ -14,7 +14,7 @@ pipeline {
                script {
                     sh """
                     cd ${WORKSPACE}/Kubernetes/
-                        kubectl ${kube_command} -f RBAC
+                        kubectl ${kube_command} -f RBAC -n kube-system
                     """
                }
             }
