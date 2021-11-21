@@ -15,6 +15,7 @@ pipeline {
                     sh """
                     cd ${WORKSPACE}/terraform/config/db_ec2_vpc/
                         terraform init
+                        terraform workspace new factory
                         terraform workspace select factory
                         terraform init
                         terraform plan
