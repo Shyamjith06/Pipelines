@@ -17,7 +17,7 @@ pipeline {
                         terraform workspace new factory
                         terraform workspace select factory
                         terraform init
-                        terraform workspace select ${params.env}
+                        terraform workspace select factory
                         terraform plan
                         
                         terraform ${params.terraform_option} -auto-approve
