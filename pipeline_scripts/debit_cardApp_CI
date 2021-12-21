@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Git clone') {
               steps {
-                git branch: 'main',
+                git branch: 'master',
                     credentialsId: 'Git',
                     url: 'https://github.com/Shyamjith06/Kubernetes-MVC.git'
             }
