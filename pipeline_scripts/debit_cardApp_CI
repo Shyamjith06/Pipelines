@@ -6,7 +6,7 @@ pipeline {
               steps {
                 git branch: 'master',
                     credentialsId: 'Git',
-                    url: 'https://github.com/Shyamjith06/Kubernetes-MVC.git'
+                    url: 'https://github.com/Shyamjith06/debit_card_app.git'
             }
             }
          stage('Install Maven') {
