@@ -24,7 +24,7 @@ pipeline {
               steps {
               script {
                     sh """
-                    cd ${WORKSPACE}/debit_card_app/project_code/
+                    cd ${WORKSPACE}/project_code/
                     mvn clean install
                   """
                   }
