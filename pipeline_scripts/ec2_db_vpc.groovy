@@ -11,6 +11,7 @@ pipeline {
               }
         stage('Execute Terraform to Provison EKS'){
             steps {
+              withAWS(credentials: 'jenkins_aws_user', region: 'eu-west-1'){
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/db_ec2_vpc/
