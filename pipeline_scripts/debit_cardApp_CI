@@ -19,5 +19,16 @@ pipeline {
                   }
                 }
                 }
+                
+           stage('Build app') {
+              steps {
+              script {
+                    sh """
+                    cd ${WORKSPACE}/project_code/
+                    mvn clean install
+                  """
+                  }
+                }
+                }
         }
         }
