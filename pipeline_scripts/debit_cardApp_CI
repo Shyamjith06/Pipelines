@@ -6,7 +6,7 @@ pipeline {
               steps {
                 git branch: 'main',
                     credentialsId: 'Git',
-                    url: 'https://github.com/Shyamjith06/debit_card_app.git'
+                    url: 'https://github.com/Shyamjith06/factory.git'
             }
             }
          stage('Install Maven') {
