@@ -22,7 +22,8 @@ pipeline {
                             
                         terraform apply -var dbpass=${env.DB_PASS} -auto-approve
                   """
-                  String dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
+                  dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
+                  String host = dbHost
                   }
                 }
                 }
@@ -37,7 +38,7 @@ pipeline {
            stage('Build app') {
               steps {
               script {
-              withEnv(["DB_HOST=${dbHost}"]) {
+              withEnv(["DB_HOST=${host}"]) {
                     sh """
                     cd ${WORKSPACE}/project_code/
                     mvn clean install
