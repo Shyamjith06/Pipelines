@@ -22,7 +22,7 @@ pipeline {
                             
                         terraform apply -var dbpass=${env.DB_PASS} -auto-approve
                   """
-                  dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
+                  String dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
                   }
                 }
                 }
