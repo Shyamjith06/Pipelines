@@ -1,15 +1,16 @@
+def dbHost
 pipeline {
     agent { label 'slave_one' }
 
     stages {
-        stage('Git clone') {
+        stage('Cloning factory repo for Terrafom scripts') {
               steps {
-                git branch: 'master',
+                git branch: 'main',
                     credentialsId: 'Git',
-                    url: 'https://github.com/Shyamjith06/debit_card_app.git'
+                    url: 'https://github.com/Shyamjith06/factory.git'
             }
             }
-         stage('Install Maven') {
+         stage('Installing Maven') {
               steps {
               script {
                     sh """
@@ -19,15 +20,40 @@ pipeline {
                   }
                 }
                 }
-                
+          stage('Installing Mysql'){
+              steps {
+              withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
+              script {
+                    sh """
+                    cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
+                        terraform init
+                        terraform plan
+                        
+                        terraform apply -auto-approve
+                  """
+                  dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
+                  }
+                }
+                }
+               }
+        stages {
+        stage('Cloning App Repo') {
+              steps {
+                git branch: 'master',
+                    credentialsId: 'Git',
+                    url: 'https://github.com/Shyamjith06/debit_card_app.git'
+            }
+            }
            stage('Build app') {
               steps {
               script {
+              withEnv(["DB_HOST=${dbHost}"]) {
                     sh """
                     cd ${WORKSPACE}/project_code/
                     mvn clean install
                   """
                   }
+                }
                 }
                 }
         }
