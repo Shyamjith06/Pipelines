@@ -27,7 +27,6 @@ pipeline {
                 }
                 }
                }
-        stages {
         stage('Cloning App Repo') {
               steps {
                 git branch: 'master',
@@ -49,4 +48,4 @@ pipeline {
                 }
         }
         }
-        }
+        
