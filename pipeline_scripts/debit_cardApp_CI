@@ -38,7 +38,7 @@ pipeline {
            stage('Build app') {
               steps {
               script {
-              #withEnv(["DB_HOST=${dbHost}"]) {
+              withEnv(["DB_HOST=${dbHost}"]) {
                     sh """
                     cd ${WORKSPACE}/project_code/
                     mvn clean install
