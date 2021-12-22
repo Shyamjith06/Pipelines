@@ -1,4 +1,5 @@
 String dbHost
+def x
 pipeline {
     agent { label 'slave_one' }
 
