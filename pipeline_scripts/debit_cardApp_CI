@@ -10,16 +10,7 @@ pipeline {
                     url: 'https://github.com/Shyamjith06/factory.git'
             }
             }
-         stage('Installing Maven') {
-              steps {
-              script {
-                    sh """
-                    sudo apt update
-                    sudo apt install maven -y
-                  """
-                  }
-                }
-                }
+      
           stage('Installing Mysql'){
               steps {
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
@@ -56,5 +47,6 @@ pipeline {
                 }
                 }
                 }
+        }
         }
         }
