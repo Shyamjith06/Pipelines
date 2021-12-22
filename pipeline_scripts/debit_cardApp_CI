@@ -21,10 +21,13 @@ pipeline {
                         terraform plan -var dbpass=${env.DB_PASS}
                             
                         terraform apply -var dbpass=${env.DB_PASS} -auto-approve
+                        x=\$(terraform output instance_public_ip)
+                        export host=${x}
                   """
-                  dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
+                 // dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
                 
                   }
+                  echo "${host}"
                 }
                 }
                }
@@ -38,12 +41,12 @@ pipeline {
            stage('Build app') {
               steps {
               script {
-              withEnv(["DB_HOST=${dbHost}"]) {
+            //  withEnv(["DB_HOST=${dbHost}"]) {
                     sh """
                     cd ${WORKSPACE}/project_code/
                     mvn clean install
                   """
-                  }
+             //     }
                 }
                 }
                 }
