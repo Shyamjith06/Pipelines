@@ -23,7 +23,7 @@ pipeline {
                         terraform plan -var dbpass=${env.DB_PASS}
                             
                         terraform apply -var dbpass=${env.DB_PASS} -auto-approve
-                        x=\$(terraform output instance_public_ip)
+                        x=\$(terraform output -raw instance_public_ip)
                         export host=${x}
                   """
                  // dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
