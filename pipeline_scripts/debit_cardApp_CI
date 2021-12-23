@@ -2,16 +2,8 @@ pipeline {
     agent { label 'slave_one' }
 
     stages {
-        stage('Cloning factory repo for Terrafom scripts') {
-              steps {
-                git branch: 'main',
-                    credentialsId: 'Git',
-                    url: 'https://github.com/Shyamjith06/factory.git'
-            }
-            }
-            
-            
-          stage('Setting the directories '){
+    
+         stage('Setting the directories '){
               steps {
               script {
                     sh """
@@ -22,6 +14,17 @@ pipeline {
                 }
                 }
                }
+        stage('Cloning factory repo for Terrafom scripts') {
+              steps {
+              dir("${env.WORKSPACE}/infra_code") {
+                git branch: 'main',
+                    credentialsId: 'Git',
+                    url: 'https://github.com/Shyamjith06/factory.git'
+            }
+            }
+            
+            }
+         
        
       
           stage('Installing Mysql'){
