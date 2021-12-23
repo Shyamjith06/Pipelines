@@ -46,23 +46,7 @@ pipeline {
                 }
                 }
                 }
-           stage('Destroy Mysql'){
-              steps {
-              withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
-              script {
-                    sh """
-                    cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
-                        terraform init
-                        terraform plan -var dbpass=${env.DB_PASS}
-                            
-                        terraform destroy -var dbpass=${env.DB_PASS} -auto-approve
-                                              
-                  """               
-                  }
-                  
-                }
-                }
-               }
+       
         }
         }
         
