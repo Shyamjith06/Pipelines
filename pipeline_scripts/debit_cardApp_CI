@@ -19,7 +19,7 @@ pipeline {
                         terraform init
                         terraform plan -var dbpass=${env.DB_PASS}
                             
-                        terraform apply -var dbpass=${env.DB_PASS} -auto-approve
+                        terraform ${params.terraform_option} -var dbpass=${env.DB_PASS} -auto-approve
                                               
                   """               
                   }
