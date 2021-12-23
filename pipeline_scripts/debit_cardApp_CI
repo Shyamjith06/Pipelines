@@ -1,6 +1,3 @@
-String dbHost
-def x
-def host
 pipeline {
     agent { label 'slave_one' }
 
@@ -23,13 +20,10 @@ pipeline {
                         terraform plan -var dbpass=${env.DB_PASS}
                             
                         terraform apply -var dbpass=${env.DB_PASS} -auto-approve
-                        x=\$(terraform output -json instance_public_ip | jq -r '.[0]' )
-                        export host=${x}
-                  """
-                 // dbHost= readFile "${WORKSPACE}/terraform/config/CI_Mysql_SetUp/ip_addr.txt"
-                
+                                              
+                  """               
                   }
-                  echo "${host}"
+                  
                 }
                 }
                }
