@@ -22,14 +22,15 @@ pipeline {
                 }
                 }
                }
-      def infra_path=${WORKSPACE}/infra_code 
-      dir(infra_path) {
+       
+      
           stage('Installing Mysql'){
               steps {
+              dir("${env.WORKSPACE/infra_code}) 
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
               script {
                     sh """
-                    cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
+                    cd ${WORKSPACE}/infra_code/terraform/config/CI_Mysql_SetUp/
                         terraform init
                         terraform plan -var dbpass=${env.DB_PASS}
                             
@@ -42,13 +43,13 @@ pipeline {
                 }
                }
                }
-        def project_path=${WORKSPACE}/proj_code  
-        dir(project_path) {
         stage('Cloning App Repo') {
               steps {
+              dir("${env.WORKSPACE/proj_code}) {
                 git branch: 'master',
                     credentialsId: 'Git',
                     url: 'https://github.com/Shyamjith06/debit_card_app.git'
+            }
             }
             }
            stage('Build app') {
@@ -56,14 +57,14 @@ pipeline {
               script {
             //  withEnv(["DB_HOST=${dbHost}"]) {
                     sh """
-                    cd ${WORKSPACE}/project_code/
+                    cd ${WORKSPACE}/proj_code/project_code/
                     mvn clean install
                   """
              //     }
                 }
                 }
-                }
+                
        }
         }
-        }
+        
         
