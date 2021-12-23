@@ -56,9 +56,6 @@ pipeline {
                         terraform plan -var dbpass=${env.DB_PASS}
                             
                         terraform destroy -var dbpass=${env.DB_PASS} -auto-approve
-                        
-                        cd ../../
-                        rm -rf ./*
                                               
                   """               
                   }
