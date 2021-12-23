@@ -22,7 +22,7 @@ pipeline {
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
               script {
                     sh """
-                    cd ${WORKSPACE}/infra_code/terraform/config/CI_Mysql_SetUp/
+                    cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
                         terraform init
                         terraform plan -var dbpass=${env.DB_PASS}
                             
@@ -49,7 +49,7 @@ pipeline {
               script {
             //  withEnv(["DB_HOST=${dbHost}"]) {
                     sh """
-                    cd ${WORKSPACE}/proj_code/project_code/
+                    cd ${WORKSPACE}/project_code/
                     mvn clean install
                   """
              //     }
