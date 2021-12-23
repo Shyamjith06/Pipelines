@@ -9,7 +9,21 @@ pipeline {
                     url: 'https://github.com/Shyamjith06/factory.git'
             }
             }
-      
+            
+            
+          stage('Setting the directories '){
+              steps {
+              script {
+                    sh """
+                    mkdir proj_code
+                    mkdir infra_code 
+                                              
+                  """                   
+                }
+                }
+               }
+      def infra_path=${WORKSPACE}/infra_code 
+      dir(infra_path) {
           stage('Installing Mysql'){
               steps {
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
@@ -27,6 +41,9 @@ pipeline {
                 }
                 }
                }
+               }
+        def project_path=${WORKSPACE}/proj_code  
+        dir(project_path) {
         stage('Cloning App Repo') {
               steps {
                 git branch: 'master',
@@ -46,7 +63,7 @@ pipeline {
                 }
                 }
                 }
-       
+       }
         }
         }
         
