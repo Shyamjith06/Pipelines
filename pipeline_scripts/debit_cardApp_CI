@@ -63,7 +63,7 @@ pipeline {
                 script{
                 """
                  git clone https://github.com/Shyamjith06/factory.git
-                 cd ${WORKSPACE}/infra_code/terraform/config/CI_Mysql_SetUp/
+                 cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
                      terraform init
                      terraform plan -var dbpass=${env.DB_PASS}
                      terraform destroy -var dbpass=${env.DB_PASS} -auto-approve
