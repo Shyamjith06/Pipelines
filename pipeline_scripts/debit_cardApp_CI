@@ -3,24 +3,13 @@ pipeline {
 
     stages {
     
-         stage('Setting the directories '){
-              steps {
-              script {
-                    sh """
-                    mkdir proj_code
-                    mkdir infra_code 
-                                              
-                  """                   
-                }
-                }
-               }
         stage('Cloning factory repo for Terrafom scripts') {
               steps {
-              dir("${env.WORKSPACE}/infra_code") {
+              
                 git branch: 'main',
                     credentialsId: 'Git',
                     url: 'https://github.com/Shyamjith06/factory.git'
-            }
+            
             }
             
             }
@@ -29,7 +18,7 @@ pipeline {
       
           stage('Installing Mysql'){
               steps {
-              dir("${env.WORKSPACE}/infra_code") {
+              
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
               script {
                     sh """
@@ -42,17 +31,17 @@ pipeline {
                   """               
                   }
                   
-                }
+                
                 }
                }
                }
         stage('Cloning App Repo') {
               steps {
-              dir("${env.WORKSPACE}/proj_code") {
+              
                 git branch: 'master',
                     credentialsId: 'Git',
                     url: 'https://github.com/Shyamjith06/debit_card_app.git'
-            }
+            
             }
             }
            stage('Build app') {
@@ -68,6 +57,20 @@ pipeline {
                 }
                 
        }
+       
+        stage('Destroying resources ') {
+              steps {
+                script{
+                """
+                 git clone https://github.com/Shyamjith06/factory.git
+                 cd ${WORKSPACE}/infra_code/terraform/config/CI_Mysql_SetUp/
+                     terraform init
+                     terraform plan -var dbpass=${env.DB_PASS}
+                     terraform destroy -var dbpass=${env.DB_PASS} -auto-approve
+                """
+            }
+            }
+       
         }
         
        } 
