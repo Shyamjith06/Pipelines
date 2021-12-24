@@ -24,7 +24,7 @@ pipeline {
                     sh """
                     cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
                         terraform init
-                        terraform plan -var dbpass=${env.DB_PASS}
+                        terraform plan -var dbpass=${env.DB_PASS} --out=plan.out
                             
                         terraform ${params.terraform_option} -var dbpass=${env.DB_PASS} -auto-approve
                                               
