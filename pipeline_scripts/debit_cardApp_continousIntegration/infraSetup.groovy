@@ -16,7 +16,7 @@ pipeline {
          
        
       
-          stage('Installing Mysql'){
+          stage('Setting up infra'){
               steps {
               
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
@@ -26,7 +26,7 @@ pipeline {
                         terraform init
                         terraform plan -var dbpass=${env.DB_PASS} --out=plan.out
                             
-                        terraform ${params.terraform_option} -var dbpass=${env.DB_PASS} -auto-approve
+                        terraform apply -var dbpass=${env.DB_PASS} -auto-approve
                                               
                   """               
                   }
@@ -35,3 +35,31 @@ pipeline {
                 }
                }
                }
+         stage('Building the App..'){
+              steps {
+              script {
+                  build job: 'buildApp'
+              }
+              }
+         }
+        stage('Destroying Infra'){
+              steps {
+              
+              withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
+              script {
+                    sh """
+                    cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
+                            
+                        terraform destroy -var dbpass=${env.DB_PASS} -auto-approve
+                                              
+                  """               
+                  }
+                  
+                
+                }
+               }
+            }
+        
+    }
+}
+                      
