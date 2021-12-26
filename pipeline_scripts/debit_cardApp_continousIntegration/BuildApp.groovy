@@ -1,6 +1,8 @@
 pipeline {
     agent { label 'slave_one' }
-
+    parameters {
+    string(name: 'BuildNumber',value: ' ', description: 'BUILD source')
+    }
     stages {
     
         stage('Cloning the App Repo') {
