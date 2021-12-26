@@ -39,7 +39,8 @@ pipeline {
               steps {
               script {
                   build job: 'buildApp',
-                      parameters : [ string(name: 'BuildNumber', value: "${BUILD_NUMBER}") ]
+                      parameters : [
+                          [ string(name: 'BuildNumber', value: "${BUILD_NUMBER}") ]
                      ]
               }
               }
