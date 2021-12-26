@@ -41,7 +41,8 @@ pipeline {
                   build job: 'buildApp',
                       parameters : [
                           string(name: 'BuildNumber', value: "${BUILD_NUMBER}")
-                     ]
+                     ],
+                          propagate: false
               }
               }
          }
