@@ -38,7 +38,9 @@ pipeline {
          stage('Building the App..'){
               steps {
               script {
-                  build job: 'buildApp'
+                  build job: 'buildApp',
+                      parameters : [ string(name: 'BuildNumber', value: "${BUILD_NUMBER}") ]
+                     ]
               }
               }
          }
