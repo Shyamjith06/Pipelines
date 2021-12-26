@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'slave_one' }
     parameters {
-    string(name: 'BuildNumber',value: ' ', description: 'BUILD source')
+    string(name: 'BuildNumber', defaultValue: ' ', description: 'BUILD source')
     }
     stages {
     
