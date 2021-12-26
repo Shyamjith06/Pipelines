@@ -40,11 +40,13 @@ pipeline {
               script {
                   build job: 'buildApp',
                       parameters : [
-                          [ string(name: 'BuildNumber', value: "${BUILD_NUMBER}") ]
+                          string(name: 'BuildNumber', value: "${BUILD_NUMBER}")
                      ]
               }
               }
          }
+        
+      
         stage('Destroying Infra'){
               steps {
               
