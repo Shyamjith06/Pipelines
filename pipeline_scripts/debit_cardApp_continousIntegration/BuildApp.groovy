@@ -31,7 +31,7 @@ pipeline {
               
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
                   
-                  s3Upload(file:'project_code/target/*.war', bucket:'debitcard-app-artifact', path:'${WORKSPACE}/project_code/target/debitcardcustomer-0.0.1-SNAPSHOT.war')
+                  s3Upload(file:'project_code/target/debitcardcustomer-0.0.1-SNAPSHOT.war', bucket:'debitcard-app-artifact', path:'artifacts/debitcardcustomer-0.0.1-SNAPSHOT.war')
             //  script {
                   //  sh """
                    // cd ${WORKSPACE}/terraform/config/CI_Mysql_SetUp/
