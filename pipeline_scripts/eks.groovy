@@ -11,6 +11,7 @@ pipeline {
               }
         stage('Execute Terraform to Provison EKS'){
             steps {
+                withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/eks_setup/
@@ -22,7 +23,9 @@ pipeline {
                         
                         """
                        }
-                    }
+                
+                }
+            }
             }
         stage('Setting up the Cluster Access'){
              when {
@@ -31,6 +34,7 @@ pipeline {
                     }
                 }
             steps {
+                withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
                 script {
                     sh """
                     cd ${WORKSPACE}/terraform/config/eks_setup/
@@ -39,6 +43,7 @@ pipeline {
                         kubectl apply -f aws-auth-conf.yaml
                         rm aws-auth-conf.yaml
                         """
+                }
                 }
             }
         }
