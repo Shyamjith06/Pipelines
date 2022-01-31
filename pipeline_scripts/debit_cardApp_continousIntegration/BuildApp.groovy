@@ -26,7 +26,7 @@ pipeline {
                 
        }
         
-     stage('Uploading artifact to S#'){
+     stage('Uploading artifact to S3 Bucket'){
               steps {
               
               withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
@@ -48,6 +48,29 @@ pipeline {
                }
                }
         
-        
+         stage('Docker Build'){
+              steps {
+                   script {
+                   sh """
+                   cd ${WORKSPACE}/project_code/
+                    docker build -t mydebitcardapp .
+                    """
+                      }
+         }
+         }
+         stage('Pushing Docker Image to ECR '){
+              steps {
+                   withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
+                   script {
+                   sh """
+                   cd ${WORKSPACE}/project_code/
+                        aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 228699574855.dkr.ecr.eu-west-1.amazonaws.com
+                        docker tag mydebitcardapp:latest 228699574855.dkr.ecr.eu-west-1.amazonaws.com/debitcardapp:${BuildNumber}
+                        docker push 228699574855.dkr.ecr.eu-west-1.amazonaws.com/debitcardapp:${BuildNumber}
+                    """
+                      }
+                      }
+         }
+         }
     }
 }
