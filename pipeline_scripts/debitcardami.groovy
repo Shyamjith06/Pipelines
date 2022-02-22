@@ -20,8 +20,8 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/packerfiles/
-                       sh 'packer --version'
-                       packer --version
+                       
+                      sudo packer --version
                     """
                    }
                   }
