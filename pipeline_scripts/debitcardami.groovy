@@ -20,8 +20,7 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/packer/
-                    
-                    echo "${ls}" 
+                       ls
                     """
                    }
                   }
