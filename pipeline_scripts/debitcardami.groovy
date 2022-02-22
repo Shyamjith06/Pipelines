@@ -20,7 +20,7 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/packer/
-                       ls
+                       packer build debitcard.json
                     """
                    }
                   }
