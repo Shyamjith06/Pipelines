@@ -19,8 +19,9 @@ pipeline {
                     sh """
                     cd ${WORKSPACE}/packer/
                      packer build -var 'aws_access_key=${env.ACCESS_KEY}' -var 'aws_secret_key=${env.SECRET_KEY}' debitcard.json
-                     }
-                     }
-                     }
-                     }
-                     }
+                    """
+                   }
+                  }
+                }
+              }
+            }
