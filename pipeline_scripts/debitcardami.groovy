@@ -15,13 +15,16 @@ pipeline {
             }
       stage('Building AMI'){
             steps {
+                 withAWS(credentials: 'L-jenkinsuser', region: 'eu-west-1'){
+              
                 script {
                     sh """
                     cd ${WORKSPACE}/packer/
-                     packer build -var 'aws_access_key=${env.ACCESS_KEY}' -var 'aws_secret_key=${env.SECRET_KEY}' debitcard.json
+                     packer build  debitcard.json
                     """
                    }
                   }
                 }
               }
             }
+}
