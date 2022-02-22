@@ -20,7 +20,7 @@ pipeline {
                 script {
                     sh """
                     cd ${WORKSPACE}/packerfiles/
-                       packer build debitcard.json
+                       packer --version
                     """
                    }
                   }
