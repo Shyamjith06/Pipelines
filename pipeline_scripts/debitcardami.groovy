@@ -21,7 +21,7 @@ pipeline {
                     sh """
                     cd ${WORKSPACE}/packerfiles/
                        
-                      sudo packer --version
+                      packer build debitcard.json
                     """
                    }
                   }
