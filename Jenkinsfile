@@ -2,11 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('SCM') {
-            steps {
-                echo 'Hello World'
+ stage('Cloning the App Repo') {
+              steps { 
+                git branch: 'master',
+               
+                    url: 'https://github.com/Shyamjith06/Hospital.git'      
+            }          
             }
-        }
+ 
         stage('Execute Terraform to Provison EKS'){
             steps {
                 script {
