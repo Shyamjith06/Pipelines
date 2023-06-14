@@ -35,7 +35,7 @@ pipeline {
         stage('Debug') {
             steps {
                 script {
-                def file = new File('C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json')
+                def file = new File('dotnetDeploy\\idev1.json')
                 if (file.exists()) {
                     echo "File exists: ${file.absolutePath}"
                 } 
@@ -45,27 +45,49 @@ pipeline {
                 }
             }
         }
-        stage('json')
-        {
-            steps{
-                script{
-                    def fileContent = readFile file: "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"
-                    echo fileContent
-                    def jsonFilePath = "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"  // Replace with your JSON file path
-                    def jsonSlurper = new JsonSlurper()
-                    echo "line1"
-                    def jsonData = jsonSlurper.parse(new File(jsonFilePath))
-                    echo "line2"
-                    def remoteHostIPs = jsonData.InternalIps
-                    for (remoteIp in remoteHostIPs.keySet()) {
-                        env.ip = remoteIp
-                        def cred = remoteHostIPs[env.ip]
-                        echo "$remoteIp"
-// Read JSON file and parse data
-                    }
-                }
+        stage('json') {
+    steps {
+        script {
+            def jsonFilePath = "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"  // Replace with your JSON file path
+            def jsonSlurper = new groovy.json.JsonSlurper()
+            def jsonData = jsonSlurper.parse(new File(jsonFilePath))
+            def remoteHostIPs = jsonData.InternalIps
+            for (remoteIp in remoteHostIPs.keySet()) {
+                env.ip = remoteIp
+                def cred = remoteHostIPs[env.ip]
+                echo remoteIp
+                // Read JSON file and parse data
             }
         }
+    }
+}
              
+    }
+}
+
+
+
+
+
+
+
+
+stage('Print JSON File') {
+    steps {
+        script {
+            // Read the text file
+            def fileContent = bat(returnStdout: true, script: 'type C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json')
+
+            // Print the file content
+            echo fileContent.trim()
+
+            // Parse the JSON file
+            def jsonFilePath = "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"
+            def jsonSlurper = new groovy.json.JsonSlurper()
+            def jsonData = jsonSlurper.parseText(fileContent)
+
+            // Access JSON data
+            // Example: echo jsonData.keyName
+        }
     }
 }
