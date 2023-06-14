@@ -18,7 +18,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.CRED_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     powershell '''
-                        $content = get-content .\idev1.json -Raw
+                        $content = get-content .\\idev1.json -Raw
                         $contentobject = $content | ConvertFrom-Json
                         $remoteHost=$contentobject.bei_services
                         $session = New-PSSession -ComputerName $remoteHost -Credential (New-Object System.Management.Automation.PSCredential("$env:USERNAME", $(ConvertTo-SecureString "$env:PASSWORD" -AsPlainText -Force)))
