@@ -22,8 +22,8 @@ pipeline {
                         $contentobject = $content | ConvertFrom-Json
                         $remoteHost=$contentobject.bei_services
                         write-output "$remoteHost"
-                       # $session = New-PSSession -ComputerName $remoteHost -Credential (New-Object System.Management.Automation.PSCredential("$env:USERNAME", $(ConvertTo-SecureString "$env:PASSWORD" -AsPlainText -Force)))
-                       # Invoke-Command -Session $session -ScriptBlock {start-WebAppPool -Name "DefaultAppPool"}
+                        $session = New-PSSession -ComputerName "$remoteHost" -Credential (New-Object System.Management.Automation.PSCredential("$env:USERNAME", $(ConvertTo-SecureString "$env:PASSWORD" -AsPlainText -Force)))
+                        Invoke-Command -Session $session -ScriptBlock {start-WebAppPool -Name "DefaultAppPool"}
                         '''
                 }
             }
