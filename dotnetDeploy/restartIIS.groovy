@@ -18,7 +18,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.CRED_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     powershell '''
-                        $content = get-content .\\idev1.json -Raw
+                        $content = get-content .\\dotnetDeploy\\idev1.json -Raw
                         $contentobject = $content | ConvertFrom-Json
                         $remoteHost=$contentobject.bei_services
                         write-output "$remoteHost"
