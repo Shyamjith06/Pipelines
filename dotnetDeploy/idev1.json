@@ -1,12 +1,7 @@
 {
-   "beiservice": {
-      "ip": "212315952136472",
-      "username" : "shyam"
 
-   },
-   "ssoservice": {
-      "ip": "212315952136472",
-      "username" : "shyam2"
+"bei_services": "3.22.41.76",
+"ssoremotehostip2": "192.168.190.1"
 
-   }
+
 }
