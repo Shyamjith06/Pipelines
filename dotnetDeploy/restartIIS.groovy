@@ -32,9 +32,9 @@ pipeline {
 //                 }
 //             }
 //         }
-        stage ('json')
+        stage('json')
         {
-            step{
+            steps{
                 script{
                     def jsonFilePath = '.\\dotnetDeploy\\idev1.json'  // Replace with your JSON file path
                     def jsonSlurper = new JsonSlurper()
