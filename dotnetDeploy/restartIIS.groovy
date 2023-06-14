@@ -37,6 +37,7 @@ pipeline {
             steps{
                 script{
                     def jsonFilePath = "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"  // Replace with your JSON file path
+                    echo "hii"
                     def jsonSlurper = new JsonSlurper()
                     def jsonData = jsonSlurper.parse(new File(jsonFilePath))
                     def remoteHostIPs = jsonData.InternalIps
