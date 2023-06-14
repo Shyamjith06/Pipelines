@@ -32,6 +32,19 @@ pipeline {
 //                 }
 //             }
 //         }
+        stage('Debug') {
+            steps {
+                script {
+                def file = new File('C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json')
+                if (file.exists()) {
+                    echo "File exists: ${file.absolutePath}"
+                } 
+                    else {
+                echo "File not found: ${file.absolutePath}"
+                }    
+                }
+            }
+        }
         stage('json')
         {
             steps{
