@@ -36,6 +36,8 @@ pipeline {
         {
             steps{
                 script{
+                    def fileContent = readFile file: "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\myfile.txt"
+                    echo fileContent
                     def jsonFilePath = "C:\\jenkins\\workspace\\deploy_to_iis\\dotnetDeploy\\idev1.json"  // Replace with your JSON file path
                     def jsonSlurper = new JsonSlurper()
                     echo "line1"
