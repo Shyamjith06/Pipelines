@@ -18,8 +18,11 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.CRED_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     powershell '''
-                        $session = New-PSSession -ComputerName '3.22.41.76' -Credential (New-Object System.Management.Automation.PSCredential("$env:USERNAME", $(ConvertTo-SecureString "$env:PASSWORD" -AsPlainText -Force)))
-                        Invoke-Command -Session $session -ScriptBlock {stop-WebAppPool -Name "DefaultAppPool"}
+                        $content = get-content .\idev1.json -Raw
+                        $contentobject = $content | ConvertFrom-Json
+                        $remoteHost=$contentobject.bei_services
+                        $session = New-PSSession -ComputerName $remoteHost -Credential (New-Object System.Management.Automation.PSCredential("$env:USERNAME", $(ConvertTo-SecureString "$env:PASSWORD" -AsPlainText -Force)))
+                        Invoke-Command -Session $session -ScriptBlock {start-WebAppPool -Name "DefaultAppPool"}
                         '''
                 }
             }
